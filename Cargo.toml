@@ -1,0 +1,25 @@
+[package]
+name = "rustic"
+version = "0.1.0"
+authors = ["PeterAjaaa"]
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/PeterAjaaa/rustic/"
+description = "A naive image converter written in Rust."
+readme = "README.md"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+image = "0.24.2"
+clap = { version = "3.1.18", features = ["derive"] }
+rayon = "1.5.3"
+
+[profile.release]
+lto = "fat"
+codegen-units = 1
+opt-level = 3
+debug = 0
+strip = "symbols"
+debug-assertions = false
+overflow-checks = false
