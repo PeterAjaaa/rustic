@@ -1,6 +1,6 @@
 use clap::Parser;
 use image::{io::Reader, ImageFormat};
-use std::path::Path;
+use std::{fs, path::Path};
 
 fn main() {
     #[derive(Parser)]
@@ -38,18 +38,30 @@ fn main() {
 
     if input.is_file() {
         if input == output {
-            println!("Error: The input and output files are the same");
+            eprintln!("Error: The input and output files are the same");
             return;
-        } else if input.is_dir() {
-            println!("Error: The input is a folder");
+        }
+        if input.is_dir() {
+            eprintln!("Error: The input is a folder");
             return;
         } else {
-            convert(input, output, mode)
+            convert(input, output, mode, format);
+        }
+    } else if input.is_dir() {
+        match fs::create_dir_all(&output) {
+            Ok(_) => {}
+            Err(_) => {
+                eprintln!("Error: Could not create output folder");
+                return;
+            }
+        }
+        if output.is_file() {
+            eprintln!("Error: The output is a file")
         }
     }
 }
 
-fn convert(input: &Path, output: &Path, mode: &str) {
+fn convert(input: &Path, output: &Path, mode: &str, format: ImageFormat) {
     match Reader::open(input) {
         Ok(reader) => match reader.with_guessed_format() {
             Ok(reader) => match reader.decode() {
@@ -60,25 +72,25 @@ fn convert(input: &Path, output: &Path, mode: &str) {
                         mode
                     );
                     let mod_output = output.join(modif);
-                    match image.save(&mod_output) {
+                    match image.save_with_format(&mod_output, format) {
                         Ok(_) => {
                             println!("{} saved to {}", input.display(), mod_output.display());
                         }
                         Err(err) => {
-                            println!("Error saving image: {}", err);
+                            eprintln!("Error saving image: {}", err);
                         }
                     }
                 }
                 Err(err) => {
-                    println!("Error decoding image: {}", err);
+                    eprintln!("Error decoding image: {}", err);
                 }
             },
             Err(err) => {
-                println!("Error analyzing image format: {}", err);
+                eprintln!("Error analyzing image format: {}", err);
             }
         },
         Err(err) => {
-            println!("Error reading file: {}", err);
+            eprintln!("Error reading file: {}", err);
         }
     }
 }
