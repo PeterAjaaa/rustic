@@ -41,6 +41,8 @@ fn converter(input: &Path, output: &Path, mode: &str, format: ImageFormat) {
 
 pub fn folder_convert(input: &Path, output: &Path, mode: &str, format: ImageFormat) {
     let mod_output: PathBuf;
+    let mut file_vec = Vec::new();
+
     match fs::create_dir_all(output.join("rustic-converted")) {
         Ok(_) => mod_output = output.join("rustic-converted"),
         Err(err) => {
@@ -54,34 +56,30 @@ pub fn folder_convert(input: &Path, output: &Path, mode: &str, format: ImageForm
     } else if output.is_dir() {
         match fs::read_dir(input) {
             Ok(entries) => {
-                let entries: Vec<_> = entries.collect();
-                entries.par_iter().for_each(|entry| match entry {
-                    Ok(entry) => {
-                        let mut par_item = Vec::new();
-                        if entry.path().is_file() {
-                            par_item.push(entry.path());
-                        } else {
-                            println!("Ignoring folder: {}", entry.path().display());
+                for item in entries {
+                    match item {
+                        Ok(entry) => {
+                            let path = entry.path();
+                            if path.is_file() {
+                                file_vec.push(path);
+                            } else {
+                                println!("{} is not a file, skipping...", path.display());
+                            }
                         }
-                        if par_item.len() > 0 {
-                            par_item.par_iter().for_each(|item| {
-                                converter(item, &mod_output, mode, format);
-                            });
-                        } else {
-                            eprintln!("Error: No files found in folder");
+                        Err(err) => {
+                            eprintln!("Error reading entry: {}", err);
                         }
                     }
-                    Err(err) => {
-                        eprintln!("Error reading entry: {}", err);
-                        return;
-                    }
-                });
+                }
             }
             Err(err) => {
                 eprintln!("Error reading input folder: {}", err);
                 return;
             }
         }
+        file_vec.par_iter().for_each(|file| {
+            converter(file, &mod_output, mode, format);
+        });
     }
 }
 
@@ -111,3 +109,19 @@ pub fn image_formatter(mode: &str) -> Result<ImageFormat, &str> {
         Err("Unsupported image format")
     }
 }
+
+// if par_item.len() > 0 {
+//     par_item.par_iter().for_each(|item| {
+//         converter(item, &mod_output, mode, format);
+//     });
+// } else {
+//     eprintln!("Error: No files found in folder");
+// }
+
+// if par_item.len() > 0 {
+//     par_item.par_iter().for_each(|item| {
+//         converter(item, &mod_output, mode, format);
+//     });
+// } else {
+//     eprintln!("Error: No files found in folder");
+// }
