@@ -40,16 +40,15 @@ fn converter(input: &Path, output: &Path, mode: &str, format: ImageFormat) {
 }
 
 pub fn folder_convert(input: &Path, output: &Path, mode: &str, format: ImageFormat) {
-    let mod_output: PathBuf;
-    let mut file_vec = Vec::new();
+    let mut file_vec: Vec<PathBuf> = Vec::new();
 
-    match fs::create_dir_all(output.join("rustic-converted")) {
-        Ok(_) => mod_output = output.join("rustic-converted"),
+    let mod_output: PathBuf = match fs::create_dir_all(output.join("rustic-converted")) {
+        Ok(_) => output.join("rustic-converted"),
         Err(err) => {
             eprintln!("Error creating output folder: {}", err);
             return;
         }
-    }
+    };
 
     if output.is_file() {
         eprintln!("Error: The output is a file")
@@ -90,7 +89,6 @@ pub fn convert(input: &Path, output: &Path, mode: &str, format: ImageFormat) {
     }
     if input.is_dir() {
         eprintln!("Error: The input is a folder");
-        return;
     } else {
         converter(input, output, mode, format);
     }
@@ -109,19 +107,3 @@ pub fn image_formatter(mode: &str) -> Result<ImageFormat, &str> {
         Err("Unsupported image format")
     }
 }
-
-// if par_item.len() > 0 {
-//     par_item.par_iter().for_each(|item| {
-//         converter(item, &mod_output, mode, format);
-//     });
-// } else {
-//     eprintln!("Error: No files found in folder");
-// }
-
-// if par_item.len() > 0 {
-//     par_item.par_iter().for_each(|item| {
-//         converter(item, &mod_output, mode, format);
-//     });
-// } else {
-//     eprintln!("Error: No files found in folder");
-// }

@@ -23,15 +23,14 @@ fn main() {
     let input = Path::new(&args.input);
     let output = Path::new(&args.output);
     let mode = &args.mode;
-    let format: ImageFormat;
 
-    match image_formatter(mode) {
-        Ok(f) => format = f,
+    let format: ImageFormat = match image_formatter(mode) {
+        Ok(f) => f,
         Err(err) => {
             eprintln!("Error: {}", err);
             return;
         }
-    }
+    };
 
     if input.is_file() {
         convert(input, output, mode, format)
