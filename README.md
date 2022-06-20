@@ -22,7 +22,7 @@ Rustic is a naive (but blazingly fast) image converter written in Rust. Rustic s
 
 - Locate the "Packages" on the left side of the page.
 
-- CLick on that and download the appropriate package for your operating system.
+- Click on that and download the appropriate package for your operating system (.exe for Windows, and the executable without an extension for Linux).
 
 ## Building
 
@@ -32,15 +32,15 @@ To build `rustic` you need to have Rust installed on your system.
 
 - Do a `git clone` of the repository, using:
 
-    `git clone https://github.com/NightlyWare/rustic`
+    git clone <https://github.com/NightlyWare/rustic>
 
 - Run the following command in the Rustic directory:
 
-    `cargo build --release`
+    cargo build --release
 
 - You should see a `rustic` executable file in the `/target/release` directory.
 
-    `target/release/rustic`
+    target/release/rustic
 
 - Note that based on your operating system, the executable file extension may be different.
 
@@ -48,15 +48,15 @@ To build `rustic` you need to have Rust installed on your system.
 
 First, go into the folder that contains the `rustic` executable file.
 
-    `cd folder/`
+    cd folder/to/rustic/executable/
 
 Then run the executable file. When first running `rustic`, it is advised to run it with the `--help` or the `-h` flag.
 
-    `rustic --help`
+    rustic --help
 
 Or using the shorthand flags:
 
-    `rustic -h`
+    rustic -h
 
 ## ToDo
 
