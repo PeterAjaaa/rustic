@@ -46,7 +46,11 @@ To build `rustic` you need to have Rust installed on your system.
 
 ## Usage
 
-When first running `rustic`, it is advised to run it with the `--help` or the `-h` flag.
+First, go into the folder that contains the `rustic` executable file.
+
+    `cd folder/`
+
+Then run the executable file. When first running `rustic`, it is advised to run it with the `--help` or the `-h` flag.
 
     `rustic --help`
 
