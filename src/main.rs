@@ -24,6 +24,11 @@ fn main() {
     let output = Path::new(&args.output);
     let mode = &args.mode;
 
+    if !output.is_dir() {
+        eprintln!("Error: The output is not a folder");
+        return;
+    }
+
     let format: ImageFormat = match image_formatter(mode) {
         Ok(f) => f,
         Err(err) => {
