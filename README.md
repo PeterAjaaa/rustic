@@ -56,7 +56,7 @@ Or using the shorthand flags:
 
 ## ToDo
 
-- Add support for WebP image format.
+-[] Add support for WebP image format.
 
 ## Changelog
 
