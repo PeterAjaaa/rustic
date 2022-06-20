@@ -93,7 +93,7 @@ pub fn convert(input: &Path, output: &Path, mode: &str, format: ImageFormat) {
         converter(input, output, mode, format);
     }
 }
-
+// Decided not to use match statements to account for expected user input between jpg and jpeg
 pub fn image_formatter(mode: &str) -> Result<ImageFormat, &str> {
     if mode == "png" {
         Ok(ImageFormat::Png)
