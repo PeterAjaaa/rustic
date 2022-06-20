@@ -60,4 +60,4 @@ Or using the shorthand flags:
 
 ## Changelog
 
-See the [CHANGELOG](CHANGELOG) for the list of changes.
+See the [CHANGELOG](CHANGELOG.md) for the list of changes.
