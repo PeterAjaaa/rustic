@@ -9,13 +9,13 @@ fn main() {
     #[clap(version, about)]
     struct Arguments {
         #[clap(short = 'i', long = "input", display_order = 1)]
-        /// Path to input file or folder containing images
+        /// Path to input file or folder containing image(s)
         input: String,
         #[clap(short = 'o', long = "output", display_order = 2)]
-        /// Path to output file or folder containing images (file extension is not mandatory)
+        /// Path to output folder for converted image(s)
         output: String,
         #[clap(short = 'm', long = "mode", display_order = 3)]
-        /// Mode of image convert (supported: "png", "jpg (or jpeg)", "bmp", "gif")
+        /// Mode of image conversion (supported: "png", "jpg (or jpeg)", "bmp", "gif")
         mode: String,
     }
 
