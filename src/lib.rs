@@ -12,7 +12,7 @@ fn converter(input: &Path, output: &Path, mode: &str, format: ImageFormat) {
                 Ok(image) => {
                     let modif = format!(
                         "{}-converted.{}",
-                        input.file_name().unwrap().to_string_lossy(),
+                        input.file_stem().unwrap().to_string_lossy(),
                         mode
                     );
                     let mod_output = output.join(modif);
@@ -85,10 +85,6 @@ pub fn folder_convert(input: &Path, output: &Path, mode: &str, format: ImageForm
 pub fn convert(input: &Path, output: &Path, mode: &str, format: ImageFormat) {
     if input == output {
         eprintln!("Error: The input and output files are the same");
-        return;
-    }
-    if input.is_dir() {
-        eprintln!("Error: The input is a folder");
     } else {
         converter(input, output, mode, format);
     }
