@@ -32,15 +32,15 @@ To build `rustic` you need to have Rust installed on your system.
 
 - Do a `git clone` of the repository, using:
 
-     git clone <https://github.com/PeterAjaaa/rustic>
+      git clone <https://github.com/PeterAjaaa/rustic>
 
 - Run the following command in the Rustic directory:
 
-     cargo build --release
+      cargo build --release
 
 - You should see a `rustic` executable file in the `/target/release` directory.
 
-     target/release/rustic
+      target/release/rustic
 
 - Note that based on your operating system, the executable file extension may be different.
 
